@@ -1,0 +1,6 @@
+Sobre Dockerfile:
+
+Um Dockerfile é um arquivo texto que descreve as etapas que o Docker precisa para preparar uma imagem, 
+incluindo a instalação de pacotes, criação de diretórios e definição de variáveis de ambiente 
+entre outras coisas.
+

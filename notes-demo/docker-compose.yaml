@@ -1,39 +1,25 @@
-version: '2'
+version: '3'
+
 services:
-  app-back:
-    image: tacele/notes-demo:latest
+  mysqlsrv:
+    image: mysql:5.7
+    environment:
+      MYSQL_ROOT_PASSWORD: tacele123
+      MYSQL_DATABASE: studydb
+    ports:
+      - "3306:3306"
+    volumes:
+      - C:/Users/Tacele Araujo/projetos/bancodedados/mysql:/var/lib/mysql
+    networks:
+      - mysql-compose-network
+
+  adminer:
+    image: adminer
     ports:
       - 8080:8080
-    environment:
-      - POSTGRES_DB=exampledb
-      - POSTGRES_USER=exampleuser
-      - POSTGRES_PASSWORD=examplepassword
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-    depends_on:
-      - postgres
     networks:
-      - app-network
+      - mysql-compose-network
 
-  postgres:
-    image: postgres:9.6
-    hostname: postgres
-    #domainname: postgres
-    ports:
-      - "5432:5432"
-    environment:
-      - POSTGRES_DB=exampledb
-      - POSTGRES_USER=exampleuser
-      - POSTGRES_PASSWORD=examplepassword
-      - POSTGRES_HOST=postgres
-      - POSTGRES_PORT=5432
-    networks:
-      - app-network
-
-networks:
-  app-network:
+networks: 
+  mysql-compose-network:
     driver: bridge
-    ipam:
-      driver: default
-      config:
-        - subnet: 192.163.252.0/16
